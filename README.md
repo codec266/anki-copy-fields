@@ -1,9 +1,9 @@
 # Anki Copy Fields
-**Copy Fields** is a simple [Anki](https://apps.ankiweb.net/) add-on that allows you to quickly copy fields from the previous card of the same type to your current one.
+**Copy Fields** is a simple [Anki](https://apps.ankiweb.net/) add-on that allows you to quickly copy fields from your previous note.
 
 ## Features
 - Copy fields from the previous note of the same type.
-- Automatically include tags
+- Automatically includes tags.
 - Configure which fields to copy per note type
 - Easy setup via **Tools → Copy Fields**
 
@@ -17,7 +17,7 @@
 **Source**
 1. Go to the [Releases](https://github.com/codec266/anki-copy-fields/releases) tab of this repository.
 2. Download the latest `.ankiaddon` file.
-3. Double-click the `.ankiaddon` file to install
+3. Double-click the `.ankiaddon` file to install.
 4. Restart Anki.
 ## Demo
 ![Demo](assets/demo.gif)
@@ -38,3 +38,4 @@
 3. The configured fields and tags from the note before the current one will be copied.
 
 ⚠️ If no previous note exists or no configuration is set for the current note type, a pop-up will notify you instead of pasting.
+___
