@@ -12,7 +12,7 @@ def add_buttons(buttons, editor):
         copy_icon,
         "select fields",
         copy_action,
-        tip="select fields"
+        tip="select fields to copy"
     )
 
     paste_icon = os.path.join(os.path.dirname(__file__), "resources", "paste.png")
@@ -20,7 +20,7 @@ def add_buttons(buttons, editor):
         paste_icon,
         "paste fields",
         paste_action,
-        tip="paste selected fields"
+        tip="paste fields automatically"
     )
     buttons.append(copy_button)
     buttons.append(paste_button)
