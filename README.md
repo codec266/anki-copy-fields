@@ -24,7 +24,7 @@
 4. Choose the fields you want to automatically copy.
 5. Click `OK` to save your configuration.
 
-📂 Your note type configurations are stored in `user_files/note_type_fields.json`
+📂 Your note type configurations are stored in `user_files/settings.json`
 
 **Pasting Fields from Previous Note**
 1. Open **Add** or edit an existing note.
