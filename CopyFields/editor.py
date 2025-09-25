@@ -10,9 +10,9 @@ def add_buttons(buttons, editor):
     copy_icon = os.path.join(os.path.dirname(__file__), "resources", "copy.png")
     copy_button = editor.addButton(
         copy_icon,
-        "copy fields",
+        "select fields",
         copy_action,
-        tip="copy fields"
+        tip="select fields"
     )
 
     paste_icon = os.path.join(os.path.dirname(__file__), "resources", "paste.png")
