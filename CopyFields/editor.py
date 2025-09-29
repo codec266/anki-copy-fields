@@ -1,10 +1,10 @@
-import json
 import os
 
 from aqt import mw
 from aqt.utils import showInfo, tooltip
 from .logic import setup_from_note
-from .utils import get_config
+from .utils import load_settings
+
 
 def add_buttons(buttons, editor):
     copy_icon = os.path.join(os.path.dirname(__file__), "resources", "copy.png")
@@ -24,20 +24,6 @@ def add_buttons(buttons, editor):
     )
     buttons.append(copy_button)
     buttons.append(paste_button)
-
-def load_fields_for_note_type(model_id: int):
-    config_file = get_config()
-
-    if not os.path.exists(config_file) or os.path.getsize(config_file) == 0:
-        return None
-
-    try:
-        with open(config_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-    except (json.JSONDecodeError, OSError):
-        return None
-
-    return data.get(str(model_id))
 
 def copy_action(editor):
     note = editor.note
@@ -60,8 +46,17 @@ def paste_action(editor):
     model_id = model["id"]
     model_name = model["name"]
 
-    fields_to_copy = load_fields_for_note_type(model_id)
-    if not fields_to_copy:
+    paste_fields(model, model_id, model_name)
+
+    settings = load_settings(model_id)
+    if not settings:
+        showInfo(f"No config found for {model_name}")
+        return
+
+    fields_to_copy = settings.get("fields", [])
+    tags = settings.get("tags", False)
+
+    if not fields_to_copy and not tags:
         showInfo(f"No config found for {model_name} note type")
         return
 
@@ -112,12 +107,15 @@ def paste_action(editor):
             note[new_key] = prev_note[prev_key]
             copied.append(new_key)
 
-    # also copy tags
-    note.tags = list(set(note.tags) | set(prev_note.tags))
+    # copy tags
+    if tags:
+        note.tags = list(set(note.tags) | set(prev_note.tags))
 
     editor.loadNote()
-
-    if copied:
-        tooltip(f"Pasted fields: {', '.join(copied)} + tags")
+    if copied and not tags:
+        tooltip("Fields Pasted!")
+    elif copied and tags:
+        tooltip("Fields and Tags Pasted!")
     else:
-        tooltip("0 fields pasted.")
+        tooltip("Tags Pasted!")
+

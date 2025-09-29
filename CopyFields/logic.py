@@ -1,10 +1,10 @@
-import json
-import os
-
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QDialog, QLabel, QListWidget, QDialogButtonBox, QVBoxLayout, QCheckBox
+from PyQt6.QtWidgets import QDialog, QLabel, QListWidget, QDialogButtonBox, QVBoxLayout, QCheckBox, QFrame, QGroupBox
+from anki import tags
 from aqt import mw
 from aqt.utils import tooltip, showInfo
+
+from CopyFields.utils import save_settings
 
 def chooseItemDialog(msg, choices,startrow=0):
     dialog = QDialog(mw.app.activeWindow())
@@ -39,7 +39,7 @@ def select_fields(note_type_id):
 
     dialog = QDialog(mw.app.activeWindow())
     dialog.setWindowModality(Qt.WindowModality.WindowModal)
-    layout = QVBoxLayout(dialog)
+    layout = QVBoxLayout()
     dialog.setLayout(layout)
 
     label = QLabel(f"Select fields for {model_name}")
@@ -61,28 +61,27 @@ def select_fields(note_type_id):
     if dialog.exec() == 0:
         return None
     selected_fields = [f for f, cb in checkboxes.items() if cb.isChecked()]
-
-    # save note type fields
-    user_files = os.path.join(os.path.dirname(__file__), "user_files")
-    os.makedirs(user_files, exist_ok=True)
-
-    config_file = os.path.join(user_files, "settings.json")
-
-    data = {}
-    if os.path.exists(config_file) and os.path.getsize(config_file) > 0:
-        try:
-            with open(config_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
-        except json.JSONDecodeError:
-            data = {}
-
-    data[str(note_type_id)] = selected_fields
-
-    with open(config_file, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
-
+    include_tags(note_type_id, selected_fields)
     return selected_fields
 
+def include_tags(note_type_id, selected_fields):
+    dialog = QDialog(mw.app.activeWindow())
+    dialog.setWindowModality(Qt.WindowModality.WindowModal)
+    layout = QVBoxLayout(dialog)
+    dialog.setLayout(layout)
+
+    label = QLabel("Include tags?")
+    layout.addWidget(label)
+
+    # buttons
+    buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Yes | QDialogButtonBox.StandardButton.No)
+    layout.addWidget(buttons)
+
+    buttons.accepted.connect(dialog.accept)
+    buttons.rejected.connect(dialog.reject)
+
+    tags = bool(dialog.exec())
+    save_settings(note_type_id, selected_fields, tags)
 
 def get_deck(msg="Select a Deck"):
     decks = mw.col.decks.all_names()
@@ -102,7 +101,6 @@ def get_note_type_id(deck_id):
         return
     return list(note_type_ids)
 
-
 def select_note_types(note_type_ids):
     note_types = mw.col.models.all()
     choices = [nt['name'] for nt in note_types if nt['id'] in note_type_ids]
@@ -118,7 +116,7 @@ def select_note_types(note_type_ids):
 def setup_from_note(note_id):
     selected_fields = select_fields(note_id)
     if selected_fields is not None:
-        tooltip(f"Fields saved: {selected_fields}!")
+        tooltip(str(len(selected_fields)) + " fields saved")
     else:
         tooltip("No fields selected")
 
