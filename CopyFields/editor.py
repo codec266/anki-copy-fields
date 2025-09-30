@@ -46,8 +46,6 @@ def paste_action(editor):
     model_id = model["id"]
     model_name = model["name"]
 
-    paste_fields(model, model_id, model_name)
-
     settings = load_settings(model_id)
     if not settings:
         showInfo(f"No config found for {model_name}")
