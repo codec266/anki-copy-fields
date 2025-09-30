@@ -12,7 +12,7 @@
 - Copy fields from the previous note of the same type.
 - Option to copy tags.
 - Configure which fields to copy per note type
-- Easy setup via **Tools → Copy Fields**
+- Easy setup via the editor, or **Tools → Copy Fields**
 
 ## Installation
 **AnkiWeb**
