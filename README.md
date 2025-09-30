@@ -40,7 +40,7 @@
 
 **Pasting Fields from Previous Note**
 1. Open **Add** or edit an existing note.
-2. Click the `paste selected fields` button in the editor's toolbar.
+2. Click the **paste fields automatically** button in the editor's toolbar.
 3. The configured fields and tags from the note before the current one will be copied.
 
 ⚠️ If no previous note exists or no configuration is set for the current note type, a pop-up will notify you instead of pasting.
