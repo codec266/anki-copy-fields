@@ -44,4 +44,3 @@
 3. The configured fields and tags from the note before the current one will be copied.
 
 ⚠️ If no previous note exists or no configuration is set for the current note type, a pop-up will notify you instead of pasting.
-___
