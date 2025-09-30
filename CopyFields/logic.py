@@ -1,10 +1,8 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QDialog, QLabel, QListWidget, QDialogButtonBox, QVBoxLayout, QCheckBox, QFrame, QGroupBox
-from anki import tags
 from aqt import mw
-from aqt.utils import tooltip, showInfo
-
-from CopyFields.utils import save_settings
+from aqt.utils import tooltip
+from .utils import save_settings
 
 def chooseItemDialog(msg, choices,startrow=0):
     dialog = QDialog(mw.app.activeWindow())
