@@ -1,8 +1,8 @@
 <div align="center"><h1>Anki Copy Fields</h1>
 <a href="https://ankiweb.net/shared/info/1097703658"><img src="https://img.shields.io/badge/rate-blue?style=plastic&logo=Anki&label=ankiweb&color=blue"/></a>
 <a href="https://github.com/codec266/anki-copy-fields/blob/main/LICENSE"><img src="https://img.shields.io/badge/GNU_GPLv3-grey?style=plastic&label=license&labelColor=green"/></a>
+<img src="https://github.com/codec266/anki-copy-fields/blob/main/assets/demo.gif"/>
 </div><br>
-<div align="center"><img src="https://github.com/codec266/anki-copy-fields/blob/main/assets/demo.gif"/></div>
 
 
 ## Description
