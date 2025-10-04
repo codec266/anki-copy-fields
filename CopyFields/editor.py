@@ -20,7 +20,7 @@ def add_buttons(buttons, editor):
         paste_icon,
         "paste fields",
         paste_action,
-        tip="paste fields automatically"
+        tip="paste from same note"
     )
     buttons.append(copy_button)
     buttons.append(paste_button)
